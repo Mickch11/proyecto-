@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pokémon</title>
+    <style>
+        body {
+            background-image: url('https://www.solofondos.com/wp-content/uploads/2016/01/criaturas-pokemon.jpg'); /* Reemplaza con la URL de tu imagen de fondo */
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+        img {
+            max-width: 200px;
+            max-height: 200px;
+            margin-bottom: 10px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% if error %}
+            <h1>Pokémon no encontrado.</h1>
+        {% else %}
+            <h1>{{ pokemon_info['name'].capitalize() }}</h1>
+            <img src="{{ pokemon_info['sprites']['other']['official-artwork']['front_default'] }}" alt="Imagen de {{ pokemon_info['name'].capitalize() }}">
+            <p>Número en la Pokédex: {{ pokemon_info['id'] }}</p>
+            <h2>Tipos:</h2>
+            <ul>
+                {% for type in pokemon_info['types'] %}
+                    <li>{{ type['type']['name'].capitalize() }}</li>
+                {% endfor %}
+            </ul>
+            <h2>Habilidades:</h2>
+            <ul>
+                {% for ability in pokemon_info['abilities'] %}
+                    <li>{{ ability['ability']['name'].capitalize() }}</li>
+                {% endfor %}
+            </ul>
+            <h2>Sprites:</h2>
+            <ul>
+                {% for sprite_type, sprite_url in pokemon_info['sprites']['other']['official-artwork'].items() %}
+                    {% if sprite_url %}
+                        <li>{{ sprite_type.replace('_', ' ').capitalize() }}: <img src="{{ sprite_url }}" alt="{{ sprite_type }}"></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <h2>Movimientos por nivel:</h2>
+            <ul>
+                {% for move in pokemon_info['moves']|reverse %}
+                    {% if move['version_group_details'][0]['level_learned_at'] is not none %}
+                        <li>{{ move['move']['name'].capitalize() }} (Nivel {{ move['version_group_details'][0]['level_learned_at'] }})</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <a href="/">Volver a la Pokédex</a>
+    </div>
+</body>
+</html>

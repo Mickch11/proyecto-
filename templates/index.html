@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pokédex</title>
+    <style>
+        body {
+            background-image: url('https://w.forfun.com/fetch/f3/f30092740d584de7067db23b0dc0fc2b.jpeg?w=1000&r=0.5625');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .search-form {
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .search-form input {
+            padding: 5px;
+            font-size: 16px;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Pokédex</h1>
+        <form action="/pokemon" method="post" class="search-form">
+            <label for="pokemon_input">Buscar por nombre:</label>
+            <input type="text" id="pokemon_input" name="pokemon_name" required>
+            <button type="submit">Buscar</button>
+        </form>
+        <form action="/pokemon" method="post" class="search-form">
+            <label for="pokemon_number_input">Buscar por número:</label>
+            <input type="number" id="pokemon_number_input" name="pokemon_number" required>
+            <button type="submit">Buscar</button>
+        </form>
+    </div>
+</body>
+</html>
